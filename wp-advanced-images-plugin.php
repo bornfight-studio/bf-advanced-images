@@ -21,11 +21,18 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
+use bornfight\wpHelpers\PluginPartialFinder;
+
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPAIMP_PLUGIN_VERSION', '1.0.0' );
 define( 'WPAIMP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once __DIR__ . '/vendor/autoload.php';
+
+if ( ! function_exists( 'get_admin_wpaimp_partial' ) ) {
+	function get_admin_wpaimp_partial( string $partial, array $data = null, bool $return = false, $folder = PluginPartialFinder::ADMIN_PARTIAL_FOLDER ) {
+		return PluginPartialFinder::get_instance()->get_partial( $partial, $data, $return, $folder );
+	}
+}
