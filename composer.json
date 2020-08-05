@@ -1,0 +1,22 @@
+{
+  "require": {
+    "bornfight/wp-helpers-bf": "*",
+    "ext-curl": "*",
+    "ext-json": "*"
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/bornfight/wp-helpers-bf"
+    }
+  ],
+  "autoload": {
+    "files": [
+    ],
+    "classmap": [
+    ],
+    "psr-4": {
+      "wpAdvancedImagesPlugin\\": "includes"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+[
+    {
+        "name": "bornfight/wp-helpers-bf",
+        "version": "v2.4",
+        "version_normalized": "2.4.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/bornfight/wp-helpers-bf.git",
+            "reference": "7a8a72959b16bfcf9b35b36cc14a819203414fba"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/bornfight/wp-helpers-bf/zipball/7a8a72959b16bfcf9b35b36cc14a819203414fba",
+            "reference": "7a8a72959b16bfcf9b35b36cc14a819203414fba",
+            "shasum": ""
+        },
+        "time": "2020-07-31T13:18:59+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "bornfight\\wpHelpers\\": "src"
+            }
+        },
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "WP team",
+                "email": "wpadmin@bornfight.com"
+            }
+        ],
+        "description": "Standard package for WP development used at Bornfight",
+        "support": {
+            "source": "https://github.com/bornfight/wp-helpers-bf/tree/v2.4",
+            "issues": "https://github.com/bornfight/wp-helpers-bf/issues"
+        }
+    }
+]

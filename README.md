@@ -1,0 +1,1 @@
+## WP Advanced Images Plugin
