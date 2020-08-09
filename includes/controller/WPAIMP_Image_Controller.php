@@ -33,13 +33,13 @@ class WPAIMP_Image_Controller {
 	 *
 	 * @return bool
 	 */
-	public function add_image_size( string $size_name = '', int $width = 0, int $height = 0, bool $crop = false ): bool {
-		if ( empty( $size_name ) || ! $width || ! $height ) {
+	public function add_image_size( string $size_name = '', array $size = array(), bool $crop = false ): bool {
+		if ( empty( $size_name ) || empty( $size[0] || empty( $size[1] ) ) ) {
 			return false;
 		}
 
 		$this->image_sizes[ $size_name ] = array(
-			'size' => array( $width, $height ),
+			'size' => array( $size[0], $size[1] ),
 			'crop' => $crop
 		);
 
@@ -71,11 +71,21 @@ class WPAIMP_Image_Controller {
 		return $this->image_sizes;
 	}
 
+	/**
+	 * Get image by size name
+	 *
+	 * @param int|null $attachment_id
+	 * @param string $size_name
+	 * @param bool $crop
+	 *
+	 * @return string
+	 */
 	public function get_attachment_image_by_size_name( ?int $attachment_id, string $size_name, bool $crop = false ): string {
 		if ( empty( $attachment_id ) || empty( $size_name ) ) {
 			return '';
 		}
 
+		// if size name is equal 'full' it's default original image
 		if ( 'full' === $size_name ) {
 			$original_image = wp_get_attachment_image_src( $attachment_id, 'full' );
 
@@ -87,13 +97,27 @@ class WPAIMP_Image_Controller {
 		}
 
 		$image_size = $this->get_image_size( $size_name );
-		$width      = $image_size['size'][0];
-		$height     = $image_size['size'][1];
+		if ( empty( $image_size ) ) {
+			return '';
+		}
+		$width  = $image_size['size'][0];
+		$height = $image_size['size'][1];
 
-		return $this->get_image( $attachment_id, array( $width, $height ), $crop );
+		$image = $this->get_image( $attachment_id, array( $width, $height ), $crop );
+
+		return $image;
 	}
 
-	public function get_attachment_image_src( ?int $attachment_id = null, $size = '', bool $crop = false ): string {
+	/**
+	 * Get image by custom size
+	 *
+	 * @param int|null $attachment_id
+	 * @param string $size
+	 * @param bool $crop
+	 *
+	 * @return string
+	 */
+	public function get_attachment_image_by_custom_size( ?int $attachment_id = null, array $size = array(), bool $crop = false ): string {
 		if ( empty( $attachment_id ) || empty( $size ) ) {
 			return '';
 		}
@@ -101,6 +125,15 @@ class WPAIMP_Image_Controller {
 		return $this->get_image( $attachment_id, array( $size[0], $size[1] ), $crop );
 	}
 
+	/**
+	 * Logic behind getting image
+	 *
+	 * @param int $attachment_id
+	 * @param array $size
+	 * @param bool $crop
+	 *
+	 * @return string
+	 */
 	public function get_image( int $attachment_id, array $size = array(), bool $crop = false ): string {
 		if ( empty( $size[0] ) ) {
 			return '';
@@ -117,36 +150,29 @@ class WPAIMP_Image_Controller {
 			return $directory_options->get_fly_path( $fly_file_path );
 		}
 
+		// Check if images directory is writeable
+		if ( ! $directory_options->is_advanced_images_dir_writable() ) {
+			return array();
+		}
+
+		// Get WP Image Editor Instance
+		$image_path   = apply_filters( 'fly_attached_file', get_attached_file( $attachment_id ), $attachment_id, $size, $crop );
+		$image_editor = wp_get_image_editor( $image_path );
+		if ( ! is_wp_error( $image_editor ) ) {
+			// Create new image
+			$image_editor->resize( $size[0], $size[1], $crop );
+			$image_editor->save( $fly_file_path );
+
+			// Trigger action
+			do_action( 'fly_image_created', $attachment_id, $fly_file_path );
+
+			return $directory_options->get_fly_path( $fly_file_path );
+		}
+
 		return '';
-
-
-//		// Check if images directory is writeable
-//		if ( ! $directory_options->is_advanced_images_dir_writable() ) {
-//			return array();
-//		}
-//
-//		// Get WP Image Editor Instance
-//		$image_path   = apply_filters( 'fly_attached_file', get_attached_file( $attachment_id ), $attachment_id, $size, $crop );
-//		$image_editor = wp_get_image_editor( $image_path );
-//		if ( ! is_wp_error( $image_editor ) ) {
-//			// Create new image
-//			$image_editor->resize( $width, $height, $crop );
-//			$image_editor->save( $fly_file_path );
-//
-//			// Trigger action
-//			do_action( 'fly_image_created', $attachment_id, $fly_file_path );
-//
-//			// Image created, return its data
-//			$image_dimensions = $image_editor->get_size();
-//
-//			return array(
-//				'src'    => $directory_options->get_fly_path( $fly_file_path ),
-//				'width'  => $image_dimensions['width'],
-//				'height' => $image_dimensions['height'],
-//			);
-//		}
 	}
 
+	// Delete not working TODO
 	public function delete_attachment_advanced_images( ?int $attachment_id ) {
 		WP_Filesystem();
 		global $wp_filesystem;

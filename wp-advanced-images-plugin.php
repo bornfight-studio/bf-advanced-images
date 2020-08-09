@@ -40,8 +40,6 @@ if ( ! function_exists( 'get_admin_wpaimp_partial' ) ) {
 	}
 }
 
-require_once WPAIMP_PLUGIN_PATH . '/includes/core/helpers.php';
-
 $dashboard_setup = new WPAIMP_Dashboard_Setup();
 $dashboard_setup->init();
 
