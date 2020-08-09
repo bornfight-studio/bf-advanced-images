@@ -22,12 +22,15 @@
  */
 
 use bornfight\wpHelpers\PluginPartialFinder;
+use wpAdvancedImagesPlugin\core\WPAIMP_Dashboard_Setup;
+use wpAdvancedImagesPlugin\core\WPAIMP_Directory_Options;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'WPAIMP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
+define( 'WPAIMP_PLUGIN_PATH', __DIR__ );
+//define( 'WPAIMP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
 require_once __DIR__ . '/vendor/autoload.php';
 
@@ -36,3 +39,12 @@ if ( ! function_exists( 'get_admin_wpaimp_partial' ) ) {
 		return PluginPartialFinder::get_instance()->get_partial( $partial, $data, $return, $folder );
 	}
 }
+
+require_once WPAIMP_PLUGIN_PATH . '/includes/core/helpers.php';
+
+$dashboard_setup = new WPAIMP_Dashboard_Setup();
+$dashboard_setup->init();
+
+$directory_options = new WPAIMP_Directory_Options();
+$directory_options->init();
+
