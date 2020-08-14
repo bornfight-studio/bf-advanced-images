@@ -21,7 +21,7 @@ const paths = {
         dest: "admin/dist/",
     },
     scripts: {
-        main: "admin/js/wp-social-media-plugin-admin-core.js",
+        main: "admin/js/wp-advanced-images-plugin-admin.js",
         src: "admin/js/**/*.js",
         dest: "admin/dist/",
     },
@@ -128,7 +128,7 @@ export function reload(done) {
  */
 export function serve(done) {
     server.init({
-        proxy: "www.bwp.loc/acquis-web-2020",
+        proxy: "www.bwp.loc/pmi-web-2020",
         port: 3000,
         host: "localhost",
     });

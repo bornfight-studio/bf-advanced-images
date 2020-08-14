@@ -22,6 +22,7 @@
  */
 
 use bornfight\wpHelpers\PluginPartialFinder;
+use wpAdvancedImagesPlugin\api\WPAIMP_Rest_Api_Custom_Routes;
 use wpAdvancedImagesPlugin\core\WPAIMP_Dashboard_Setup;
 use wpAdvancedImagesPlugin\core\WPAIMP_Directory_Options;
 
@@ -40,8 +41,15 @@ if ( ! function_exists( 'get_admin_wpaimp_partial' ) ) {
 	}
 }
 
+add_action( 'admin_enqueue_scripts', function () {
+	wp_enqueue_script( 'wp-advanced-images-plugin-admin-js', plugin_dir_url( __FILE__ ) . 'admin/dist/bundle.js', null, microtime(), true );
+} );
+
 $dashboard_setup = new WPAIMP_Dashboard_Setup();
 $dashboard_setup->init();
+
+$register_rest_api_routes = new WPAIMP_Rest_Api_Custom_Routes();
+$register_rest_api_routes->register();
 
 $directory_options = new WPAIMP_Directory_Options();
 $directory_options->init();

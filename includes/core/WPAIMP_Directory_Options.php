@@ -16,8 +16,7 @@ class WPAIMP_Directory_Options {
 	public function init() {
 		$this->create_dir_if_not_exists();
 
-		add_action( 'delete_attachment', array( $this, 'delete_attachment_fly_images' ) );
-		add_action( 'switch_blog', array( $this, 'blog_switched' ) );
+//		add_action( 'delete_attachment', array( $this, 'delete_attachment_fly_images' ) );
 	}
 
 	/**
@@ -70,7 +69,7 @@ class WPAIMP_Directory_Options {
 	 *
 	 * @return string
 	 */
-	public function get_fly_file_name( $file_name, $width, $height, $crop ) {
+	public function get_wpaimp_file_name( $file_name, $width, $height, $crop ) {
 		$file_name_only = pathinfo( $file_name, PATHINFO_FILENAME );
 		$file_extension = pathinfo( $file_name, PATHINFO_EXTENSION );
 
@@ -96,7 +95,7 @@ class WPAIMP_Directory_Options {
 	 *
 	 * @return string
 	 */
-	public function get_fly_path( $absolute_path = '' ) {
+	public function get_wpaimp_path( $absolute_path = '' ) {
 		$wp_upload_dir = wp_upload_dir();
 		$path          = $wp_upload_dir['baseurl'] . str_replace( $wp_upload_dir['basedir'], '', $absolute_path );
 

@@ -27,8 +27,7 @@ class WPAIMP_Image_Controller {
 	 * Add dynamic image size
 	 *
 	 * @param string $size_name
-	 * @param int $width
-	 * @param int $height
+	 * @param array $size
 	 * @param bool $crop
 	 *
 	 * @return bool
@@ -112,7 +111,7 @@ class WPAIMP_Image_Controller {
 	 * Get image by custom size
 	 *
 	 * @param int|null $attachment_id
-	 * @param string $size
+	 * @param array $size
 	 * @param bool $crop
 	 *
 	 * @return string
@@ -142,48 +141,52 @@ class WPAIMP_Image_Controller {
 		$image             = wp_get_attachment_metadata( $attachment_id );
 		$directory_options = new WPAIMP_Directory_Options();
 		// Get file path
-		$fly_dir       = $directory_options->get_advanced_images_path( $attachment_id );
-		$fly_file_path = $fly_dir . DIRECTORY_SEPARATOR . $directory_options->get_fly_file_name( basename( $image['file'] ), $size[0], $size[1], $crop );
+		$wpaimp_dir       = $directory_options->get_advanced_images_path( $attachment_id );
+		$wpaimp_file_path = $wpaimp_dir . DIRECTORY_SEPARATOR . $directory_options->get_wpaimp_file_name( basename( $image['file'] ), $size[0], $size[1], $crop );
 
 		// Check if file exsists
-		if ( file_exists( $fly_file_path ) ) {
-			return $directory_options->get_fly_path( $fly_file_path );
+		if ( file_exists( $wpaimp_file_path ) ) {
+			return $directory_options->get_wpaimp_path( $wpaimp_file_path );
 		}
 
 		// Check if images directory is writeable
 		if ( ! $directory_options->is_advanced_images_dir_writable() ) {
-			return array();
+			return '';
 		}
 
 		// Get WP Image Editor Instance
-		$image_path   = apply_filters( 'fly_attached_file', get_attached_file( $attachment_id ), $attachment_id, $size, $crop );
+		$image_path   = apply_filters( 'wpaimp_attached_file', get_attached_file( $attachment_id ), $attachment_id, $size, $crop );
 		$image_editor = wp_get_image_editor( $image_path );
 		if ( ! is_wp_error( $image_editor ) ) {
 			// Create new image
 			$image_editor->resize( $size[0], $size[1], $crop );
-			$image_editor->save( $fly_file_path );
+			$image_editor->save( $wpaimp_file_path );
 
 			// Trigger action
-			do_action( 'fly_image_created', $attachment_id, $fly_file_path );
+			do_action( 'wpaimp_image_created', $attachment_id, $wpaimp_file_path );
 
-			return $directory_options->get_fly_path( $fly_file_path );
+			return $directory_options->get_wpaimp_path( $wpaimp_file_path );
 		}
 
 		return '';
 	}
 
-	// Delete not working TODO
-	public function delete_attachment_advanced_images( ?int $attachment_id ) {
-		WP_Filesystem();
-		global $wp_filesystem;
-		$directory_options = new WPAIMP_Directory_Options();
-
-		return $wp_filesystem->rmdir( $directory_options->get_advanced_images_path( $attachment_id ), true );
-	}
+//	// Delete all images for an attachemnt not working TODO
+//	public function delete_attachment_advanced_images( ?int $attachment_id ) {
+////		WP_Filesystem();
+//		global $wp_filesystem;
+//		$directory_options = new WPAIMP_Directory_Options();
+//
+//		return $wp_filesystem->rmdir( $directory_options->get_advanced_images_path( $attachment_id ), true );
+//	}
 
 	public function delete_all_advanced_images() {
-		WP_Filesystem();
 		global $wp_filesystem;
+
+		require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+
+		WP_Filesystem();
+
 		$directory_options = new WPAIMP_Directory_Options();
 
 		if ( $wp_filesystem->rmdir( $directory_options->get_advanced_images_path(), true ) ) {
