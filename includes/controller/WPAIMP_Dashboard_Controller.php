@@ -34,8 +34,23 @@ class WPAIMP_Dashboard_Controller {
 				$image_controller = WPAIMP_Image_Controller::get_instance();
 				$image_controller->delete_all_advanced_images();
 				break;
+			case 'unset_default_images':
+				$this->save_unset_default_images_values( $query_params['data'] ?? null );
+				break;
 		}
 
 		return true;
+	}
+
+	public function save_unset_default_images_values( ?array $data ): void {
+		$update_data = array();
+
+		if ( ! empty( $data ) ) {
+			foreach ( $data as $data_value ) {
+				$update_data[ $data_value ] = $data_value;
+			}
+		}
+
+		update_option( 'wpaimp_image_sizes', $update_data );
 	}
 }

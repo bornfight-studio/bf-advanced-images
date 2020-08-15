@@ -2,7 +2,6 @@
 
 namespace wpAdvancedImagesPlugin\core;
 
-use wpAdvancedImagesPlugin\controller\WPAIMP_Image_Controller;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -13,6 +12,7 @@ class WPAIMP_Dashboard_Setup {
 
 	public function init(): void {
 		add_action( 'admin_menu', array( $this, 'register_options_submenu_page' ) );
+		add_action( 'intermediate_image_sizes_advanced', array( $this, 'disable_default_image_sizes' ) );
 	}
 
 
@@ -37,5 +37,17 @@ class WPAIMP_Dashboard_Setup {
 
 		// Show the template
 		load_template( WPAIMP_PLUGIN_PATH . '/admin/wp-advanced-images-plugin-admin-display.php' );
+	}
+
+	public function disable_default_image_sizes( array $sizes ): array {
+		$image_sizes = get_option( 'wpaimp_image_sizes' );
+
+		if ( ! empty( $image_sizes ) ) {
+			foreach ( $image_sizes as $image_size ) {
+				unset( $sizes[ $image_size ] );
+			}
+		}
+
+		return $sizes;
 	}
 }

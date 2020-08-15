@@ -4,8 +4,10 @@ export default class DashboardMainController {
     init() {
         this.mainPluginDiv = document.querySelector('.js-wp-advanced-images-plugin');
         this.deleteAllCachedImagesButton = document.querySelector('.js-wpaimp-delete-all-images-btn');
+        this.unsetDefaultImagesButton = document.querySelector('.js-wpaimp-image-sizes-unset-btn');
 
         this.deleteAllCachedImages();
+        this.unsetDefaultImages();
     }
 
     deleteAllCachedImages() {
@@ -22,10 +24,38 @@ export default class DashboardMainController {
         }
     }
 
+    unsetDefaultImages() {
+        if (this.unsetDefaultImagesButton) {
+            this.unsetDefaultImagesButton.addEventListener('click', (event) => {
+                event.preventDefault();
+
+                // let formData = new FormData(this.wpDefaultImageSizesForm);
+                // console.log(formData);
+
+                let formValues = [];
+                let formData = document.querySelectorAll('input[type=checkbox][name=unset_image_sizes]:checked')
+
+                if (formData.length > 0) {
+                    for (let i = 0; i < formData.length; i++) {
+                        formValues.push(formData[i].value);
+                    }
+                }
+
+                let data = {
+                    action: 'unset_default_images',
+                    data: formValues
+                }
+
+                this.ajaxUpdate(data);
+            });
+        }
+    }
+
     ajaxUpdate(data = {}) {
         let nonce = '';
         let apiUrl = '';
         let url = '';
+
 
         if (this.mainPluginDiv) {
             apiUrl = this.mainPluginDiv.getAttribute('data-api-url');
@@ -42,8 +72,6 @@ export default class DashboardMainController {
             method: 'post',
             url: apiUrl + '/' + url,
             data: data,
-        }).then(response => {
-            console.log(response);
         });
     }
 }
