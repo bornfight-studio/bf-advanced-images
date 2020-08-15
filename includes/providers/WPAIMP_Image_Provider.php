@@ -69,14 +69,15 @@ class WPAIMP_Image_Provider {
 		return $this->configs;
 	}
 
-	public function get_picture_element( string $config_name ): string {
+	public function get_picture_element( string $config_name, array $fallback_image ): string {
 		if ( empty( $config_name ) ) {
 			return '';
 		}
 
 		if ( $this->configs[ $config_name ] ) {
 			return get_public_wpaimp_partial( 'images/picture-element', array(
-				'config' => $this->configs[ $config_name ]
+				'config'         => $this->configs[ $config_name ],
+				'fallback_image' => $fallback_image
 			), true );
 		}
 
