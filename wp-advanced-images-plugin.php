@@ -41,6 +41,12 @@ if ( ! function_exists( 'get_admin_wpaimp_partial' ) ) {
 	}
 }
 
+if ( ! function_exists( 'get_public_wpaimp_partial' ) ) {
+	function get_public_wpaimp_partial( string $partial, array $data = null, bool $return = false, $folder = PluginPartialFinder::PUBLIC_PARTIAL_FOLDER ) {
+		return PluginPartialFinder::get_instance()->get_partial( $partial, $data, $return, $folder );
+	}
+}
+
 add_action( 'admin_enqueue_scripts', function () {
 	wp_enqueue_script( 'wp-advanced-images-plugin-admin-js', plugin_dir_url( __FILE__ ) . 'admin/dist/bundle.js', null, microtime(), true );
 } );
