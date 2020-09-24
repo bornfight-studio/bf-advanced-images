@@ -79,7 +79,7 @@ class WPAIMP_Image_Controller {
 	 *
 	 * @return string
 	 */
-	public function get_attachment_image_by_size_name( ?int $attachment_id, string $size_name, bool $crop = false ): string {
+	public function get_attachment_image_by_size_name( ?int $attachment_id, string $size_name, bool $crop = false ): ?string {
 		if ( empty( $attachment_id ) || empty( $size_name ) ) {
 			return '';
 		}
@@ -88,8 +88,12 @@ class WPAIMP_Image_Controller {
 		if ( 'full' === $size_name ) {
 			$original_image = wp_get_attachment_image_src( $attachment_id, 'full' );
 
-			if ( ! empty( $original_image ) ) {
+			if ( ! empty( $original_image['src'] ) ) {
 				return $original_image['src'];
+			}
+
+			if ( ! empty( $original_image[0] ) ) {
+				return $original_image[0];
 			}
 
 			return '';
@@ -183,7 +187,7 @@ class WPAIMP_Image_Controller {
 	public function delete_all_advanced_images() {
 		global $wp_filesystem;
 
-		require_once ( ABSPATH . '/wp-admin/includes/file.php' );
+		require_once( ABSPATH . '/wp-admin/includes/file.php' );
 
 		WP_Filesystem();
 

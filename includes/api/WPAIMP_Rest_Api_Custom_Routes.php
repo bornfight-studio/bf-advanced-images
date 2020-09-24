@@ -20,8 +20,9 @@ class WPAIMP_Rest_Api_Custom_Routes {
 				WPAIMP_Constants::BASE_PATH,
 				WPAIMP_Constants::API_DASH_CONTROLLER,
 				array(
-					'methods'  => array( 'POST' ),
-					'callback' => array( new WPAIMP_Dashboard_Controller(), 'update_dash_data' )
+					'methods'             => array( 'POST' ),
+					'callback'            => array( new WPAIMP_Dashboard_Controller(), 'update_dash_data' ),
+					'permission_callback' => '__return_true'
 				)
 			);
 		} );
