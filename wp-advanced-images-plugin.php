@@ -25,10 +25,14 @@ use bornfight\wpHelpers\PluginPartialFinder;
 use wpAdvancedImagesPlugin\api\WPAIMP_Rest_Api_Custom_Routes;
 use wpAdvancedImagesPlugin\core\WPAIMP_Dashboard_Setup;
 use wpAdvancedImagesPlugin\core\WPAIMP_Directory_Options;
+use wpAdvancedImagesPlugin\core\WPAIMP_Plugin_Partial_Finder;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
+
+// Local Path
+define( 'WPAIMP_LOCAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 
 define( 'WPAIMP_PLUGIN_PATH', __DIR__ );
 //define( 'WPAIMP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -37,13 +41,13 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 if ( ! function_exists( 'get_admin_wpaimp_partial' ) ) {
 	function get_admin_wpaimp_partial( string $partial, array $data = null, bool $return = false, $folder = PluginPartialFinder::ADMIN_PARTIAL_FOLDER ) {
-		return PluginPartialFinder::get_instance()->get_partial( $partial, $data, $return, $folder );
+		return WPAIMP_Plugin_Partial_Finder::get_instance()->get_partial( $partial, $data, $return, $folder );
 	}
 }
 
 if ( ! function_exists( 'get_public_wpaimp_partial' ) ) {
 	function get_public_wpaimp_partial( string $partial, array $data = null, bool $return = false, $folder = PluginPartialFinder::PUBLIC_PARTIAL_FOLDER ) {
-		return PluginPartialFinder::get_instance()->get_partial( $partial, $data, $return, $folder );
+		return WPAIMP_Plugin_Partial_Finder::get_instance()->get_partial( $partial, $data, $return, $folder );
 	}
 }
 

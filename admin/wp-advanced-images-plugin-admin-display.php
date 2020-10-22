@@ -11,13 +11,15 @@ $nonce             = is_admin() ? wp_create_nonce( 'wpaimp-images' ) : '';
      data-url="<?= WPAIMP_Constants::API_DASH_CONTROLLER; ?>">
     <h2>Advanced Images</h2>
     <div>
-		<?php get_admin_wpaimp_partial( 'dash-form' ); ?>
+		<?php
+        get_admin_wpaimp_partial( 'dash-form' ); ?>
     </div>
 
     <div>
         <h3>WordPress default image sizes</h3>
         <div>
-			<?php get_admin_wpaimp_partial( 'wp-default-image-sizes' ); ?>
+			<?php
+            get_admin_wpaimp_partial( 'wp-default-image-sizes' ); ?>
         </div>
     </div>
 
