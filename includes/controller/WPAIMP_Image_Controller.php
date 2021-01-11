@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPAIMP_Image_Controller {
 	private static $instance = null;
 	private $image_sizes = array();
+	private $image_srcset = array();
 
 	private function __construct() {
 	}
@@ -41,6 +42,16 @@ class WPAIMP_Image_Controller {
 			'size' => array( $size[0], $size[1] ),
 			'crop' => $crop
 		);
+
+		return true;
+	}
+
+	public function add_image_srcset( string $srcset_name = '', array $sizes = array() ): bool {
+		if ( empty( $srcset_name ) ) {
+			return false;
+		}
+
+		$this->image_srcset[ $srcset_name ] = $sizes;
 
 		return true;
 	}
