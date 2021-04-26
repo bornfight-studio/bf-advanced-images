@@ -1,12 +1,12 @@
 {
   "name": "WP Advanced Images Plugin",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "download_url": "https://plugin-service.bwp.zone?identifier=wp-advanced-images-plugin&type=download",
   "homepage": "https://www.bornfight.com",
   "requires": "4.5",
   "tested": "5.7.1",
-  "last_updated": "2021-04-01 16:17:00",
-  "upgrade_notice": "New Upgrade...",
+  "last_updated": "2021-04-26 14:00:00",
+  "upgrade_notice": "Added SrcSet function...",
   "author": "Bornfight",
   "author_homepage": "https://www.bornfight.com",
 
