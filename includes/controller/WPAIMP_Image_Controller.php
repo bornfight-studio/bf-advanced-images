@@ -2,6 +2,7 @@
 
 namespace wpAdvancedImagesPlugin\controller;
 
+use AdvancedImagesController;
 use wpAdvancedImagesPlugin\core\WPAIMP_Directory_Options;
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -184,6 +185,33 @@ class WPAIMP_Image_Controller {
 		}
 
 		return '';
+	}
+
+	public function get_srcset_images($attachment_id, $sizes)
+	{
+		$combinations = $this->image_srcset;
+		$tag = '<source srcset="%s 2x, %s" media="(min-width: %spx)" />';
+		$tag_short = '<source srcset="%s" />';
+		$data = '';
+
+		foreach ($sizes as $size) {
+			$key = isset($combinations[$size]) ?? null;
+			if ($key) {
+				$first = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $combinations[$key][0] );
+				$second = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $combinations[$key][1] );
+				$third = $combinations[$key][2];
+
+				if ($first && $second && $third) {
+					$data .= sprintf($tag, $first, $second, $third);
+				} else {
+					// Excluding doubling of tags
+					$data .= $data != sprintf($tag_short, wp_get_attachment_url($attachment_id)) ? sprintf($tag_short, wp_get_attachment_url($attachment_id)) : '';
+				}
+
+			}
+		}
+
+		return $data;
 	}
 
 //	// Delete all images for an attachemnt not working TODO
