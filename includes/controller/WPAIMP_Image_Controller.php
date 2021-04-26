@@ -187,25 +187,24 @@ class WPAIMP_Image_Controller {
 		return '';
 	}
 
-	public function get_srcset_images($attachment_id, $sizes)
-	{
+	public function get_srcset_images( int $attachment_id, array $sizes ): string {
 		$combinations = $this->image_srcset;
-		$tag = '<source srcset="%s 2x, %s" media="(min-width: %spx)" />';
-		$tag_short = '<source srcset="%s" />';
-		$data = '';
+		$tag          = '<source srcset="%s 2x, %s" media="(min-width: %spx)" />';
+		$tag_short    = '<source srcset="%s" />';
+		$data         = '';
 
-		foreach ($sizes as $size) {
-			$key = isset($combinations[$size]) ?? null;
-			if ($key) {
-				$first = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $combinations[$key][0] );
-				$second = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $combinations[$key][1] );
-				$third = $combinations[$key][2];
+		foreach ( $sizes as $size ) {
+			$key = isset( $combinations[ $size ] ) ? $combinations[ $size ] : null;
+			if ( $key ) {
+				$first  = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
+				$second = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
+				$third  = $key[2];
 
-				if ($first && $second && $third) {
-					$data .= sprintf($tag, $first, $second, $third);
+				if ( $first && $second && $third ) {
+					$data .= sprintf( $tag, $first, $second, $third );
 				} else {
 					// Excluding doubling of tags
-					$data .= $data != sprintf($tag_short, wp_get_attachment_url($attachment_id)) ? sprintf($tag_short, wp_get_attachment_url($attachment_id)) : '';
+					$data .= $data != sprintf( $tag_short, wp_get_attachment_url( $attachment_id ) ) ? sprintf( $tag_short, wp_get_attachment_url( $attachment_id ) ) : '';
 				}
 
 			}
