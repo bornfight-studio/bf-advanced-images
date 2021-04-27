@@ -8,14 +8,14 @@
  * that starts the plugin.
  *
  * @link              http://example.com
- * @since             3.0.0
+ * @since             3.1.0
  * @package           WP Advanced Images Plugin
  *
  * @wordpress-plugin
  * Plugin Name:       WP Advanced Images Plugin
  * Plugin URI:        https://github.com/bornfight/wp-advanced-images-plugin
  * Description:       Image optimization
- * Version:           3.0.0
+ * Version:           3.1.0
  * Author:            Josip Mucak
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Local Path
 define( 'WPAIMP_LOCAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'BF_PLUGIN_SLUG', 'wp-advanced-images-plugin' );
+define( 'WPAIMP_PLUGIN_SLUG', 'wp-advanced-images-plugin' );
 
 define( 'WPAIMP_PLUGIN_PATH', __DIR__ );
 //define( 'WPAIMP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -41,9 +41,9 @@ define( 'WPAIMP_PLUGIN_PATH', __DIR__ );
 require_once __DIR__ . '/vendor/autoload.php';
 
 $update_checker = Puc_v4_Factory::buildUpdateChecker(
-	'https://plugin-service.bwp.zone?identifier=' . BF_PLUGIN_SLUG . '&type=info',
+	'https://plugin-service.bwp.zone?identifier=' . WPAIMP_PLUGIN_SLUG . '&type=info',
 	__FILE__, //Full path to the main plugin file or functions.php.
-	BF_PLUGIN_SLUG
+	WPAIMP_PLUGIN_SLUG
 );
 
 
