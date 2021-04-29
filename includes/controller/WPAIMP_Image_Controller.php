@@ -189,15 +189,15 @@ class WPAIMP_Image_Controller {
 
 	public function get_srcset_images( int $attachment_id, array $sizes ): string {
 		$combinations = $this->image_srcset;
-		$tag          = '<source srcset="%s 2x, %s" media="(min-width: %spx)" />';
+		$tag          = '<source srcset="%s, %s 2x" media="(min-width: %spx)" />';
 		$tag_short    = '<source srcset="%s" />';
 		$data         = '';
 
 		foreach ( $sizes as $size ) {
 			$key = isset( $combinations[ $size ] ) ? $combinations[ $size ] : null;
 			if ( $key ) {
-				$first  = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
-				$second = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
+				$first  = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
+				$second = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
 				$third  = $key[2];
 
 				if ( $first && $second && $third ) {
