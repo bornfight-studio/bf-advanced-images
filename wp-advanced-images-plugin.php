@@ -33,7 +33,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Local Path
 define( 'WPAIMP_LOCAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
-define( 'BF_PLUGIN_SLUG', 'wp-advanced-images-plugin' );
+define( 'WP_ADVANCED_IMAGES_BF_PLUGIN_SLUG', 'wp-advanced-images-plugin' );
 
 define( 'WPAIMP_PLUGIN_PATH', __DIR__ );
 //define( 'WPAIMP_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
@@ -41,9 +41,9 @@ define( 'WPAIMP_PLUGIN_PATH', __DIR__ );
 require_once __DIR__ . '/vendor/autoload.php';
 
 $update_checker = Puc_v4_Factory::buildUpdateChecker(
-	'https://plugin-service.bwp.zone?identifier=' . BF_PLUGIN_SLUG . '&type=info',
+	'https://plugin-service.bwp.zone?identifier=' . WP_ADVANCED_IMAGES_BF_PLUGIN_SLUG . '&type=info',
 	__FILE__, //Full path to the main plugin file or functions.php.
-	BF_PLUGIN_SLUG
+	WP_ADVANCED_IMAGES_BF_PLUGIN_SLUG
 );
 
 
