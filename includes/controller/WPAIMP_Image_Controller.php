@@ -196,8 +196,8 @@ class WPAIMP_Image_Controller {
 		foreach ( $sizes as $size ) {
 			$key = isset( $combinations[ $size ] ) ? $combinations[ $size ] : null;
 			if ( $key ) {
-				$first           = $this->get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
-				$second          = $this->get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
+				$first           = $this->get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
+				$second          = $this->get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
 				$media_min_width = $key[2];
 
 				if ( $first && $second ) {
