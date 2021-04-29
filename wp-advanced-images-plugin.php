@@ -8,14 +8,14 @@
  * that starts the plugin.
  *
  * @link              http://example.com
- * @since             3.2.0
+ * @since             3.3.0
  * @package           WP Advanced Images Plugin
  *
  * @wordpress-plugin
  * Plugin Name:       WP Advanced Images Plugin
  * Plugin URI:        https://github.com/bornfight/wp-advanced-images-plugin
  * Description:       Image optimization
- * Version:           3.2.0
+ * Version:           3.3.0
  * Author:            Josip Mucak
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
