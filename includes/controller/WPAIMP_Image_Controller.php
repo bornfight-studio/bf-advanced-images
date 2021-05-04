@@ -189,19 +189,29 @@ class WPAIMP_Image_Controller {
 
 	public function get_srcset_images( int $attachment_id, array $sizes ): string {
 		$combinations = $this->image_srcset;
-		$tag          = '<source srcset="%s, %s 2x" media="(min-width: %spx)" />';
+		$tag          = '<source srcset="%s" media="(min-width: %spx)" />';
 		$tag_short    = '<source srcset="%s" />';
 		$data         = '';
 
 		foreach ( $sizes as $size ) {
 			$key = isset( $combinations[ $size ] ) ? $combinations[ $size ] : null;
 			if ( $key ) {
-				$first  = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
-				$second = self::get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
-				$third  = $key[2];
+				$first           = $this->get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[1] );
+				$second          = $this->get_attachment_image_by_size_name( $attachment_id, 'image_' . $key[0] );
+				$media_min_width = $key[2];
 
-				if ( $first && $second && $third ) {
-					$data .= sprintf( $tag, $first, $second, $third );
+				if ( $first && $second ) {
+					$srcset = $first . ', ' . $second . " 2x";
+				} else if ( $first ) {
+					$srcset = $first;
+				} else if ( $second ) {
+					$srcset = $second;
+				} else {
+					$srcset = '';
+				}
+
+				if ( $srcset && $media_min_width ) {
+					$data .= sprintf( $tag, $srcset, $media_min_width );
 				} else {
 					// Excluding doubling of tags
 					$data .= $data != sprintf( $tag_short, wp_get_attachment_url( $attachment_id ) ) ? sprintf( $tag_short, wp_get_attachment_url( $attachment_id ) ) : '';
