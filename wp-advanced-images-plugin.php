@@ -72,6 +72,8 @@ function wpaimp_run() {
 
 	$directory_options = new WPAIMP_Directory_Options();
 	$directory_options->init();
+
+	require_once __DIR__ . '/includes/global-functions.php';
 }
 
 wpaimp_run();
