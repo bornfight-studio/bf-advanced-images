@@ -6,6 +6,5 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'wpAdvancedImagesPlugin\\' => array($baseDir . '/includes'),
-    'bornfight\\wpHelpers\\' => array($vendorDir . '/bornfight/wp-helpers-bf/src'),
+    'bfAdvancedImages\\' => array($baseDir . '/app'),
 );
