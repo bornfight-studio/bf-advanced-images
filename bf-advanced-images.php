@@ -29,6 +29,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 // Local Path
 define( 'BFAI_LOCAL_PLUGIN_PATH', plugin_dir_path( __FILE__ ) );
 define( 'BFAI_PLUGIN_SLUG', 'bf-advanced-images' );
+define('BFAI_PLUGIN_BASENAME', plugin_basename(__FILE__));
 
 define( 'BFAI_PLUGIN_PATH', __DIR__ );
 

@@ -11,7 +11,7 @@ class BFDashboardSetup {
 
 	public function init(): void {
 		add_action( 'admin_menu', array( $this, 'register_options_submenu_page' ) );
-//		add_action( 'intermediate_image_sizes_advanced', array( $this, 'disable_default_image_sizes' ) );
+		add_filter( 'plugin_action_links_' . BFAI_PLUGIN_BASENAME, array( $this, 'add_settings_link' ), 10, 1 );
 	}
 
 
@@ -38,15 +38,10 @@ class BFDashboardSetup {
 		load_template( BFAI_PLUGIN_PATH . '/templates/admin/bf-advanced-images-admin-display.php' );
 	}
 
-//	public function disable_default_image_sizes( array $sizes ): array {
-//		$image_sizes = get_option( 'wpaimp_image_sizes' );
-//
-//		if ( ! empty( $image_sizes ) ) {
-//			foreach ( $image_sizes as $image_size ) {
-//				unset( $sizes[ $image_size ] );
-//			}
-//		}
-//
-//		return $sizes;
-//	}
+	public function add_settings_link( array $links ): array {
+		$settings_link = 'tools.php?page=' . BFAI_PLUGIN_SLUG;
+		$links[]       = sprintf( '<a href="%s">Settings</a>', $settings_link );
+
+		return $links;
+	}
 }
