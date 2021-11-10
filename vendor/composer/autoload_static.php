@@ -4,39 +4,32 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit4d86ce2113ba856e4af207358dcd46bf
+class ComposerStaticInit59988d37e4ad3a0be01fc59c9d355b46
 {
-    public static $files = array (
-        '49a1299791c25c6fd83542c6fedacddd' => __DIR__ . '/..' . '/yahnis-elsts/plugin-update-checker/load-v4p11.php',
-    );
-
     public static $prefixLengthsPsr4 = array (
-        'w' => 
-        array (
-            'wpAdvancedImagesPlugin\\' => 23,
-        ),
         'b' => 
         array (
-            'bornfight\\wpHelpers\\' => 20,
+            'bfAdvancedImages\\' => 17,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'wpAdvancedImagesPlugin\\' => 
+        'bfAdvancedImages\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/includes',
+            0 => __DIR__ . '/../..' . '/app',
         ),
-        'bornfight\\wpHelpers\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/bornfight/wp-helpers-bf/src',
-        ),
+    );
+
+    public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit4d86ce2113ba856e4af207358dcd46bf::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit4d86ce2113ba856e4af207358dcd46bf::$prefixDirsPsr4;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit59988d37e4ad3a0be01fc59c9d355b46::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit59988d37e4ad3a0be01fc59c9d355b46::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit59988d37e4ad3a0be01fc59c9d355b46::$classMap;
 
         }, null, ClassLoader::class);
     }

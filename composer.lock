@@ -4,101 +4,15 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "acf4d218c154845f2f732115e8f4936b",
-    "packages": [
-        {
-            "name": "bornfight/wp-helpers-bf",
-            "version": "v2.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bornfight/wp-helpers-bf.git",
-                "reference": "7a8a72959b16bfcf9b35b36cc14a819203414fba"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bornfight/wp-helpers-bf/zipball/7a8a72959b16bfcf9b35b36cc14a819203414fba",
-                "reference": "7a8a72959b16bfcf9b35b36cc14a819203414fba",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "bornfight\\wpHelpers\\": "src"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "WP team",
-                    "email": "wpadmin@bornfight.com"
-                }
-            ],
-            "description": "Standard package for WP development used at Bornfight",
-            "support": {
-                "source": "https://github.com/bornfight/wp-helpers-bf/tree/v2.4",
-                "issues": "https://github.com/bornfight/wp-helpers-bf/issues"
-            },
-            "time": "2020-07-31T13:18:59+00:00"
-        },
-        {
-            "name": "yahnis-elsts/plugin-update-checker",
-            "version": "v4.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/YahnisElsts/plugin-update-checker.git",
-                "reference": "3155f2d3f1ca5e7ed3f25b256f020e370515af43"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/YahnisElsts/plugin-update-checker/zipball/3155f2d3f1ca5e7ed3f25b256f020e370515af43",
-                "reference": "3155f2d3f1ca5e7ed3f25b256f020e370515af43",
-                "shasum": ""
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=5.2.0"
-            },
-            "type": "library",
-            "autoload": {
-                "files": [
-                    "load-v4p11.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Yahnis Elsts",
-                    "email": "whiteshadow@w-shadow.com",
-                    "homepage": "http://w-shadow.com/",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A custom update checker for WordPress plugins and themes. Useful if you can't host your plugin in the official WP repository but still want it to support automatic updates.",
-            "homepage": "https://github.com/YahnisElsts/plugin-update-checker/",
-            "keywords": [
-                "automatic updates",
-                "plugin updates",
-                "theme updates",
-                "wordpress"
-            ],
-            "time": "2021-03-15T16:07:52+00:00"
-        }
-    ],
+    "content-hash": "d751713988987e9331980363e24189ce",
+    "packages": [],
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
-    "platform": {
-        "ext-curl": "*",
-        "ext-json": "*"
-    },
+    "platform": [],
     "platform-dev": [],
-    "plugin-api-version": "1.1.0"
+    "plugin-api-version": "2.1.0"
 }
