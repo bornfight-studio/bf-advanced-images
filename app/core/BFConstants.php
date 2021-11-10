@@ -11,7 +11,5 @@ class BFConstants {
 	const DOMAIN_NAME = 'bf-advanced-images';
 	const DOMAIN_NAME_ADMIN = 'bf-advanced-images-admin';
 
-	// API Constants
-	const API_DASH_CONTROLLER = 'wp-advanced-images-plugin-dash-controller';
-	const BASE_PATH = 'api/v1';
+	const BFAI_UNSET_IMAGE_SIZES_OPTION = 'bfai_unset_image_sizes';
 }

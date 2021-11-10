@@ -7,5 +7,8 @@
     "psr-4": {
       "bfAdvancedImages\\": "app"
     }
+  },
+  "require": {
+    "ext-json": "*"
   }
 }

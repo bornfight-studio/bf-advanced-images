@@ -47,11 +47,14 @@ class BFImageController {
 
 		$image_meta_data = wp_get_attachment_metadata( $attachment_id );
 		// Get file path
-		$bf_images_path      = $this->bf_images_directory_options->get_bf_images_path( $attachment_id );
+		$bf_images_path = $this->bf_images_directory_options->get_bf_images_path( $attachment_id );
 
-		$bf_images_file_path = $bf_images_path . DIRECTORY_SEPARATOR . $this->bf_images_directory_options->get_bf_images_file_name( basename( $image_meta_data['file'] ), $size[0], $size[1], $crop );
+		if ( ! empty( $image_meta_data['file'] ) ) {
+			$bf_images_file_path = $bf_images_path . DIRECTORY_SEPARATOR . $this->bf_images_directory_options->get_bf_images_file_name( basename( $image_meta_data['file'] ), $size[0], $size[1], $crop );
+		}
+
 		// If image exists return image url
-		if ( file_exists( $bf_images_file_path ) ) {
+		if ( ! empty( $bf_images_file_path ) && file_exists( $bf_images_file_path ) ) {
 			return $this->bf_images_directory_options->get_bf_images_full_path( $bf_images_file_path );
 		}
 
@@ -63,7 +66,7 @@ class BFImageController {
 		// Get WP Image Editor Instance
 		$image_path   = get_attached_file( $attachment_id );
 		$image_editor = wp_get_image_editor( $image_path );
-		if ( ! is_wp_error( $image_editor ) ) {
+		if ( ! is_wp_error( $image_editor ) && ! empty( $bf_images_file_path ) ) {
 			// Create new image
 			$image_editor->resize( $size[0], $size[1], $crop );
 			$image_editor->save( $bf_images_file_path );

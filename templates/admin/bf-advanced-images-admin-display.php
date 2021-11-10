@@ -9,6 +9,8 @@ $bf_image_directory_options     = new BFImagesDirectoryOptions();
 $bf_admin_options_html_provider = new BFAdminOptionsHTMLProvider();
 $bf_admin_options_provider      = new BFAdminOptionsProvider();
 $deleted_images                 = $bf_admin_options_provider->delete_cached_images( $_POST, $bf_image_directory_options );
+$removed_image_sizes            = $bf_admin_options_provider->remove_image_sizes( $_POST );
+$unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) ? json_decode( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) : array();
 ?>
 <div class="wrap">
     <h2><?php esc_html_e( 'Advanced Images', BFConstants::DOMAIN_NAME_ADMIN ); ?></h2>
@@ -34,5 +36,28 @@ $deleted_images                 = $bf_admin_options_provider->delete_cached_imag
                 <p><?php esc_html_e( 'Images deleted', BFConstants::DOMAIN_NAME_ADMIN ); ?></p>
 			<?php } ?>
         </form>
+    </div>
+
+    <div>
+		<?php
+		$default_image_sizes = get_intermediate_image_sizes();
+
+		if ( ! empty( $default_image_sizes ) ) { ?>
+            <h2><?php esc_html_e( 'Remove default image sizes', BFConstants::DOMAIN_NAME_ADMIN ); ?></h2>
+            <form action="" method="post">
+				<?php foreach ( $default_image_sizes as $image_size ) { ?>
+                    <div>
+                        <input type="checkbox" name="unset_image_sizes[]" id="<?php echo esc_attr( $image_size ); ?>"
+                               value="<?php echo esc_attr( $image_size ); ?>" <?php echo in_array( $image_size, $unset_images ) ? esc_attr( 'checked' ) : ''; ?>>
+                        <label for="<?php echo esc_attr( $image_size ); ?>">Unset<b><?php echo esc_html( $image_size ); ?></b>
+                            size</label>
+                    </div>
+				<?php } ?>
+
+                <input type="submit" name="unset_image_sizes_submit"
+                       value="<?php esc_html_e( 'Remove register image sizes', BFConstants::DOMAIN_NAME_ADMIN ); ?>"
+                       class="button button-primary button-large">
+            </form>
+		<?php } ?>
     </div>
 </div> <!-- .wrap -->

@@ -20,8 +20,7 @@
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  */
 
-use bfAdvancedImages\core\BFDashboardSetup;
-use bfAdvancedImages\core\BFImagesDirectoryOptions;
+use bfAdvancedImages\core\BFCore;
 
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -35,14 +34,5 @@ define( 'BFAI_PLUGIN_PATH', __DIR__ );
 
 require_once __DIR__ . '/vendor/autoload.php';
 
-function bfai_run() {
-	$dashboard_setup = new BFDashboardSetup();
-	$dashboard_setup->init();
-
-	$directory_options = new BFImagesDirectoryOptions();
-	$directory_options->init();
-
-	require_once __DIR__ . '/app/global-helper-functions.php';
-}
-
-bfai_run();
+$bf_core = new BFCore();
+$bf_core->init();
