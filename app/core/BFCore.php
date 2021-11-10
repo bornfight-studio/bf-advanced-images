@@ -15,11 +15,11 @@ class BFCore {
 	}
 
 	public function disable_default_image_sizes( array $sizes ): array {
-		$remove_image_sizes = get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION );
+		$remove_image_sizes = ! empty( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) ? json_decode( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) : array();
 
 		if ( ! empty( $remove_image_sizes ) ) {
 			foreach ( $remove_image_sizes as $image_size ) {
-				if ( in_array( $image_size, $sizes ) ) {
+				if ( isset( $sizes[ $image_size ] ) ) {
 					unset( $sizes[ $image_size ] );
 				}
 			}
