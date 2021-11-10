@@ -49,7 +49,8 @@ $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_I
                     <div>
                         <input type="checkbox" name="unset_image_sizes[]" id="<?php echo esc_attr( $image_size ); ?>"
                                value="<?php echo esc_attr( $image_size ); ?>" <?php echo in_array( $image_size, $unset_images ) ? esc_attr( 'checked' ) : ''; ?>>
-                        <label for="<?php echo esc_attr( $image_size ); ?>">Unset<b><?php echo esc_html( $image_size ); ?></b>
+                        <label for="<?php echo esc_attr( $image_size ); ?>">Unset
+                            <b><?php echo esc_html( $image_size ); ?></b>
                             size</label>
                     </div>
 				<?php } ?>

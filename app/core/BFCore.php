@@ -13,9 +13,15 @@ class BFCore {
 		add_action( 'intermediate_image_sizes_advanced', array( $this, 'disable_default_image_sizes' ) );
 	}
 
-	public function disable_default_image_sizes( array $sizes ) {
-		foreach ( $sizes as $size_name => $size ) {
-			unset( $sizes[ $size_name ] );
+	public function disable_default_image_sizes( array $sizes ): array {
+		$remove_image_sizes = get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION );
+
+		if ( ! empty( $remove_image_sizes ) ) {
+			foreach ( $remove_image_sizes as $image_size ) {
+				if ( in_array( $image_size, $sizes ) ) {
+					unset( $sizes[ $image_size ] );
+				}
+			}
 		}
 
 		return $sizes;
