@@ -11,6 +11,7 @@ class BFCore {
 		$this->init_classes();
 
 		add_action( 'intermediate_image_sizes_advanced', array( $this, 'disable_default_image_sizes' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'add_admin_scripts' ) );
 	}
 
 	public function disable_default_image_sizes( array $sizes ): array {
@@ -35,5 +36,9 @@ class BFCore {
 		$directory_options->init();
 
 		require_once BFAI_LOCAL_PLUGIN_PATH . 'app/global-helper-functions.php';
+	}
+
+	public function add_admin_scripts(): void {
+		wp_enqueue_script( 'bfai-admin-js', BFAI_LOCAL_PLUGIN_URL . 'static/js/index.js', array(), '1.0' );
 	}
 }
