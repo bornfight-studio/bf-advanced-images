@@ -86,6 +86,8 @@ $image_url = bfai_get_image_by_custom_size( $attachment_id, array( 200, 0 ), tru
 
 `
 
+== Screenshots ==
+
 == Frequently Asked Questions ==
 
 = What kind of support do you provide? =
