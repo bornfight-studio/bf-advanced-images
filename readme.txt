@@ -1,24 +1,29 @@
-<a href="http://www.bornfight.com">
-<img width="84px" src="https://www.bornfight.com/wp-content/themes/bornfight-web-2020/static/ui/bf-logo-dark.svg" title="Bornfight" alt="Bornfight">
-</a>
+=== BF Advanced Images ===
+Contributors: jmucak
+Donate link: /
+Tags: advanced images, images, bf, custom images
+Requires at least: 4.7
+Tested up to: 5.8
+Stable tag: 1.0.0
+Requires PHP: 7.2
+License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-## BF Advanced Images
+Create images on demand
 
-> WordPress plugin for caching images, creating images on demand, removing registered image sizes
+== Description ==
 
-## Table of Contents
+With this plugin you can create images on demand. You can disable default image sizes so
+each image you upload won't be copied multiple times with different size. You can create your sizes for images and
+size will be created when you call image and not on upload.
 
-- [Features](#features)
-- [Usage](#usage)
-- [License](#license)
+== Installation ==
 
-## Features
+Upload 'bf-advanced-images' to the '/wp-content/plugins/' directory
 
-- removing default image sizes
-- adding new cached image sizes
-- creating image sizes on demand
+Activate the plugin through the 'Plugins' menu in WordPress
 
-## Usage
+= How this plugin works =
 
 1. Removing default image sizes
 
@@ -28,7 +33,7 @@ You can disable default image sizes so when uploading an image only original ima
 
 You can create as many image size you want and only when you use this image size image with this size will be created.
 
-```
+`
 if ( function_exists( 'bfai_register_image_sizes' ) ) {
     bfai_register_image_sizes( array(
         'image_200'     => array( 200, 0 ),
@@ -36,7 +41,7 @@ if ( function_exists( 'bfai_register_image_sizes' ) ) {
         'image_150_200' => array( 150, 200 ),
     ) );
 }
-```
+`
 
 3. Creating image sizes on demand
 
@@ -56,11 +61,11 @@ Parameters:
 **$crop**
 (bool)(optional)
 
-```
+`
 
 $image_url = bfai_get_image_by_size_name( $attachment_id, 'image_200', true);
 
-```
+`
 
 Example 2:
 
@@ -76,20 +81,23 @@ Parameters:
 **$crop**
 (bool)(optional)
 
-```
+`
 $image_url = bfai_get_image_by_custom_size( $attachment_id, array( 200, 0 ), true );
 
-```
+`
 
-## Support
+== Screenshots ==
 
-Reach out to us:
+== Frequently Asked Questions ==
 
-- email <a href="mailto: wpadmin@bornfight.com" target="_blank">`wpadmin@bornfight.com`</a>
+= What kind of support do you provide? =
+Please post your question on plugin support forum
 
-## License
+== Upgrade Notice ==
+= 1.0.0 =
+First Release
 
-[![License](http://img.shields.io/:license-mit-blue.svg?style=flat-square)](http://badges.mit-license.org)
-
-- **[MIT license](http://opensource.org/licenses/mit-license.php)**
-- Copyright 2021 © <a href="https://www.bornfight.com" target="_blank">Bornfight</a>.
+== Changelog ==
+= 1.0.0 =
+*Release Date - 27 October 2021*
+First Release
