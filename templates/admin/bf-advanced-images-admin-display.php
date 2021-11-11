@@ -61,7 +61,7 @@ $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_I
 				<?php } ?>
 
                 <input type="submit" name="bfai_unset_image_sizes_submit" style="margin-top: 20px;"
-                       value="<?php esc_html_e( 'Remove registered image sizes', BFConstants::DOMAIN_NAME_ADMIN ); ?>"
+                       value="<?php esc_html_e( 'Save changes', BFConstants::DOMAIN_NAME_ADMIN ); ?>"
                        class="button button-primary button-large">
             </form>
 		<?php } ?>

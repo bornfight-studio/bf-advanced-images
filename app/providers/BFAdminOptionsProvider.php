@@ -19,8 +19,11 @@ class BFAdminOptionsProvider {
 	}
 
 	public function remove_image_sizes( array $post_data ): bool {
-		if ( isset( $post_data['bfai_unset_image_sizes_submit'] ) && isset( $post_data['bfai_unset_image_sizes'] ) ) {
-			$sanitized_data = filter_var_array( $post_data['bfai_unset_image_sizes'], FILTER_SANITIZE_STRING );
+		if ( isset( $post_data['bfai_unset_image_sizes_submit'] ) ) {
+			$sanitized_data = array();
+			if ( isset( $post_data['bfai_unset_image_sizes'] ) ) {
+				$sanitized_data = filter_var_array( $post_data['bfai_unset_image_sizes'], FILTER_SANITIZE_STRING );
+			}
 
 			update_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION, json_encode( $sanitized_data ) );
 
