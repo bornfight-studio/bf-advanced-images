@@ -48,7 +48,7 @@ $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_I
                 <input type="checkbox" id="bfai_toggle_all"
                        name="bfai_unset_image_sizes[]" <?php echo in_array( 'bfai_toggle_all', $unset_images ) ? esc_attr( 'checked' ) : ''; ?>
                        value="bfai_toggle_all" onClick="bfaiToggleAll(this)">
-                <label for="bfai_toggle_all">Toggle All</label>
+                <label for="bfai_toggle_all"><?php esc_html_e( 'Toggle All', BFConstants::DOMAIN_NAME_ADMIN ); ?></label>
 				<?php foreach ( $default_image_sizes as $image_size ) { ?>
                     <div>
                         <input type="checkbox" name="bfai_unset_image_sizes[]"
