@@ -1,7 +1,3 @@
-<a href="http://www.bornfight.com">
-<img width="84px" src="https://www.bornfight.com/wp-content/themes/bornfight-web-2020/static/ui/bf-logo-dark.svg" title="Bornfight" alt="Bornfight">
-</a>
-
 ## BF Advanced Images
 
 > WordPress plugin for caching images, creating images on demand, removing registered image sizes
