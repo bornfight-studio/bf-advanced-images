@@ -35,6 +35,11 @@ class BFCore {
 		$directory_options = new BFImagesDirectoryOptions();
 		$directory_options->init();
 
+		if ( defined( 'WP_CLI' ) && WP_CLI ) {
+			$bf_images_cli = new BFImagesCLI();
+			$bf_images_cli->init();
+		}
+
 		require_once BFAI_LOCAL_PLUGIN_PATH . 'app/global-helper-functions.php';
 	}
 
