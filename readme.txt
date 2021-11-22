@@ -4,7 +4,7 @@ Donate link: /
 Tags: advanced images, images, bf, custom images
 Requires at least: 4.7
 Tested up to: 5.8
-Stable tag: 1.0.0
+Stable tag: 1.0.1
 Requires PHP: 7.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -101,3 +101,8 @@ First Release
 = 1.0.0 =
 *Release Date - 27 October 2021*
 First Release
+
+= 1.0.1 =
+*Release Date - 22 November 2021*
+
+* New - Added WP CLI Commands

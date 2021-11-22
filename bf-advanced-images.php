@@ -7,14 +7,14 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @since             1.0.0
+ * @since             1.0.1
  * @package           BF Advanced Images
  *
  * @wordpress-plugin
  * Plugin Name:       BF Advanced Images
  * Plugin URI:        https://github.com/bornfight/bf-advanced-images
  * Description:       Creating images on demand, image optimization
- * Version:           1.0.0
+ * Version:           1.0.1
  * Author:            Bornfight
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
