@@ -17,10 +17,27 @@ $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_I
 
     <div>
         <p>
-			<?php
+            <?php
 			esc_html_e( 'BF Advanced Images Directory: ', BFConstants::DOMAIN_NAME_ADMIN );
+			
+            $path = $bf_image_directory_options->get_bf_images_path();
+            echo esc_html( $path);
+            if( ! file_exists( $path ) ) {
+                echo ' <span style="color: red">This path is not valid. Reload page!</span>';
 
-			echo esc_html( $bf_image_directory_options->get_bf_images_path() );
+                // if site migrated then upload_path is wrong!
+                // try to fix get_option( 'upload_path' )
+                $new_path = '';
+                if ( defined('WP_CONTENT_DIR') ) {
+                    $new_path = WP_CONTENT_DIR . '/uploads';
+                } else if( defined( 'ABSPATH' )  )  {
+                    $new_path = ABSPATH . '/wp-content/uploads';
+                }
+
+                if( ! empty( $new_path ) ) {
+                    update_option( 'upload_path', $new_path );
+                }
+            }
 			?>
         </p>
 
