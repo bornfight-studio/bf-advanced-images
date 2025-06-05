@@ -54,8 +54,26 @@ class BFImageController {
 			$bf_images_file_path = $bf_images_path . DIRECTORY_SEPARATOR . $this->bf_images_directory_options->get_bf_images_file_name( basename( $image_meta_data['file'] ), $size[0], $size[1], $crop );
 		}
 
-		// If image exists return image url
+		// Check if WebP conversion is enabled
+		$webp_enabled = get_option( BFConstants::BFAI_WEBP_CONVERSION_OPTION, false );
+		
+		// If WebP is enabled, check for WebP version first
+		if ( $webp_enabled && ! empty( $bf_images_file_path ) ) {
+			$webp_path = preg_replace( '/\.(jpe?g|png)$/i', '.webp', $bf_images_file_path );
+			if ( file_exists( $webp_path ) ) {
+				return $this->bf_images_directory_options->get_bf_images_full_path( $webp_path );
+			}
+		}
+
+		// If WebP not found or not enabled, check for original format
 		if ( ! empty( $bf_images_file_path ) && file_exists( $bf_images_file_path ) ) {
+			// If WebP is enabled but not found, try to convert
+			if ( $webp_enabled ) {
+				$webp_path = $this->convert_to_webp( $bf_images_file_path );
+				if ( $webp_path ) {
+					return $this->bf_images_directory_options->get_bf_images_full_path( $webp_path );
+				}
+			}
 			return $this->bf_images_directory_options->get_bf_images_full_path( $bf_images_file_path );
 		}
 
@@ -73,7 +91,7 @@ class BFImageController {
 			$image_editor->save( $bf_images_file_path );
 
 			// Convert to WebP if enabled
-			if ( get_option( BFConstants::BFAI_WEBP_CONVERSION_OPTION, false ) ) {
+			if ( $webp_enabled ) {
 				$webp_path = $this->convert_to_webp( $bf_images_file_path );
 				if ( $webp_path ) {
 					return $this->bf_images_directory_options->get_bf_images_full_path( $webp_path );
@@ -88,6 +106,7 @@ class BFImageController {
 
 	private function convert_to_webp( string $image_path ): ?string {
 		if ( ! function_exists( 'imagewebp' ) ) {
+			error_log( 'BF Advanced Images: WebP function not available' );
 			return null;
 		}
 
@@ -96,6 +115,7 @@ class BFImageController {
 		// Get image info
 		$image_info = getimagesize( $image_path );
 		if ( ! $image_info ) {
+			error_log( 'BF Advanced Images: Could not get image info for: ' . $image_path );
 			return null;
 		}
 
@@ -112,10 +132,12 @@ class BFImageController {
 				imagesavealpha( $image, true );
 				break;
 			default:
+				error_log( 'BF Advanced Images: Unsupported image type: ' . $image_info[2] );
 				return null;
 		}
 
 		if ( ! $image ) {
+			error_log( 'BF Advanced Images: Could not create image resource from: ' . $image_path );
 			return null;
 		}
 
@@ -124,6 +146,12 @@ class BFImageController {
 		$success = imagewebp( $image, $webp_path, $quality );
 		imagedestroy( $image );
 
-		return $success ? $webp_path : null;
+		if ( ! $success ) {
+			error_log( 'BF Advanced Images: Failed to save WebP image: ' . $webp_path );
+			return null;
+		}
+
+		error_log( 'BF Advanced Images: Successfully converted to WebP: ' . $webp_path );
+		return $webp_path;
 	}
 }

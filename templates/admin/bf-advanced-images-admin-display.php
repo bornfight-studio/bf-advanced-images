@@ -42,6 +42,13 @@ $webp_conversion_enabled        = get_option( BFConstants::BFAI_WEBP_CONVERSION_
 
     <div>
         <h2><?php esc_html_e( 'WebP Conversion', BFConstants::DOMAIN_NAME_ADMIN ); ?></h2>
+        <?php echo wp_kses( $bf_admin_options_html_provider->get_gd_library_status(), array( 'p' => array( 'class' => array() ) ) ); ?>
+        <?php echo wp_kses( $bf_admin_options_html_provider->get_webp_debug_info(), array( 
+            'div' => array( 'class' => array() ),
+            'h3' => array(),
+            'p' => array(),
+            'strong' => array()
+        ) ); ?>
         <form action="" method="post">
             <div>
                 <input type="checkbox" id="bfai_webp_conversion"
