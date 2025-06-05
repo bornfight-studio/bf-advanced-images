@@ -10,7 +10,9 @@ $bf_admin_options_html_provider = new BFAdminOptionsHTMLProvider();
 $bf_admin_options_provider      = new BFAdminOptionsProvider();
 $deleted_images                 = $bf_admin_options_provider->delete_cached_images( $_POST, $bf_image_directory_options );
 $removed_image_sizes            = $bf_admin_options_provider->remove_image_sizes( $_POST );
+$webp_conversion_saved          = $bf_admin_options_provider->save_webp_conversion_option( $_POST );
 $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) ? json_decode( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) : array();
+$webp_conversion_enabled        = get_option( BFConstants::BFAI_WEBP_CONVERSION_OPTION, false );
 ?>
 <div class="wrap">
     <h2><?php esc_html_e( 'Advanced Images', BFConstants::DOMAIN_NAME_ADMIN ); ?></h2>
@@ -35,6 +37,24 @@ $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_I
 			<?php if ( ! empty( $deleted_images ) ) { ?>
                 <p><?php esc_html_e( 'Images deleted', BFConstants::DOMAIN_NAME_ADMIN ); ?></p>
 			<?php } ?>
+        </form>
+    </div>
+
+    <div>
+        <h2><?php esc_html_e( 'WebP Conversion', BFConstants::DOMAIN_NAME_ADMIN ); ?></h2>
+        <form action="" method="post">
+            <div>
+                <input type="checkbox" id="bfai_webp_conversion"
+                       name="bfai_webp_conversion" <?php echo $webp_conversion_enabled ? 'checked' : ''; ?>
+                       value="1">
+                <label for="bfai_webp_conversion"><?php esc_html_e( 'Enable WebP conversion for new images', BFConstants::DOMAIN_NAME_ADMIN ); ?></label>
+            </div>
+            <input type="submit" name="bfai_webp_conversion_submit" style="margin-top: 20px;"
+                   value="<?php esc_html_e( 'Save changes', BFConstants::DOMAIN_NAME_ADMIN ); ?>"
+                   class="button button-primary button-large">
+            <?php if ( $webp_conversion_saved ) { ?>
+                <p><?php esc_html_e( 'WebP conversion settings saved', BFConstants::DOMAIN_NAME_ADMIN ); ?></p>
+            <?php } ?>
         </form>
     </div>
 
