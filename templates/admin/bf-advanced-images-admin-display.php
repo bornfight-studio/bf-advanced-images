@@ -13,6 +13,8 @@ $removed_image_sizes            = $bf_admin_options_provider->remove_image_sizes
 $webp_conversion_saved          = $bf_admin_options_provider->save_webp_conversion_option( $_POST );
 $unset_images                   = ! empty( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) ? json_decode( get_option( BFConstants::BFAI_UNSET_IMAGE_SIZES_OPTION ) ) : array();
 $webp_conversion_enabled        = get_option( BFConstants::BFAI_WEBP_CONVERSION_OPTION, false );
+$webp_quality                   = get_option( BFConstants::BFAI_WEBP_QUALITY_OPTION, 80 );
+$webp_lossless                  = get_option( BFConstants::BFAI_WEBP_LOSSLESS_OPTION, false );
 ?>
 <div class="wrap">
     <h2><?php esc_html_e( 'Advanced Images', BFConstants::DOMAIN_NAME_ADMIN ); ?></h2>
@@ -50,12 +52,32 @@ $webp_conversion_enabled        = get_option( BFConstants::BFAI_WEBP_CONVERSION_
             'strong' => array()
         ) ); ?>
         <form action="" method="post">
-            <div>
-                <input type="checkbox" id="bfai_webp_conversion"
-                       name="bfai_webp_conversion" <?php echo $webp_conversion_enabled ? 'checked' : ''; ?>
-                       value="1">
-                <label for="bfai_webp_conversion"><?php esc_html_e( 'Enable WebP conversion for new images', BFConstants::DOMAIN_NAME_ADMIN ); ?></label>
+            <div class="webp-settings">
+                <div class="webp-setting-row">
+                    <input type="checkbox" id="bfai_webp_conversion"
+                           name="bfai_webp_conversion" <?php echo $webp_conversion_enabled ? 'checked' : ''; ?>
+                           value="1">
+                    <label for="bfai_webp_conversion"><?php esc_html_e( 'Enable WebP conversion for new images', BFConstants::DOMAIN_NAME_ADMIN ); ?></label>
+                </div>
+
+                <div class="webp-setting-row">
+                    <input type="checkbox" id="bfai_webp_lossless"
+                           name="bfai_webp_lossless" <?php echo $webp_lossless ? 'checked' : ''; ?>
+                           value="1">
+                    <label for="bfai_webp_lossless"><?php esc_html_e( 'Use lossless compression', BFConstants::DOMAIN_NAME_ADMIN ); ?></label>
+                    <p class="description"><?php esc_html_e( 'Lossless compression maintains image quality but results in larger file sizes.', BFConstants::DOMAIN_NAME_ADMIN ); ?></p>
+                </div>
+
+                <div class="webp-setting-row" id="webp-quality-row" style="<?php echo $webp_lossless ? 'display: none;' : ''; ?>">
+                    <label for="bfai_webp_quality"><?php esc_html_e( 'Compression Quality:', BFConstants::DOMAIN_NAME_ADMIN ); ?></label>
+                    <input type="range" id="bfai_webp_quality" name="bfai_webp_quality"
+                           min="0" max="100" value="<?php echo esc_attr( $webp_quality ); ?>"
+                           oninput="this.nextElementSibling.value = this.value">
+                    <output><?php echo esc_html( $webp_quality ); ?></output>
+                    <p class="description"><?php esc_html_e( 'Higher values mean better quality but larger file sizes. Lower values mean smaller file sizes but lower quality.', BFConstants::DOMAIN_NAME_ADMIN ); ?></p>
+                </div>
             </div>
+
             <input type="submit" name="bfai_webp_conversion_submit" style="margin-top: 20px;"
                    value="<?php esc_html_e( 'Save changes', BFConstants::DOMAIN_NAME_ADMIN ); ?>"
                    class="button button-primary button-large">
@@ -94,3 +116,9 @@ $webp_conversion_enabled        = get_option( BFConstants::BFAI_WEBP_CONVERSION_
 		<?php } ?>
     </div>
 </div> <!-- .wrap -->
+
+<script>
+document.getElementById('bfai_webp_lossless').addEventListener('change', function() {
+    document.getElementById('webp-quality-row').style.display = this.checked ? 'none' : 'block';
+});
+</script>

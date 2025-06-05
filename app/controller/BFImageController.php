@@ -141,9 +141,12 @@ class BFImageController {
 			return null;
 		}
 
+		// Get WebP settings
+		$lossless = get_option( BFConstants::BFAI_WEBP_LOSSLESS_OPTION, false );
+		$quality = get_option( BFConstants::BFAI_WEBP_QUALITY_OPTION, 80 );
+
 		// Save as WebP
-		$quality = 80; // WebP quality (0-100)
-		$success = imagewebp( $image, $webp_path, $quality );
+		$success = imagewebp( $image, $webp_path, $lossless ? -1 : $quality );
 		imagedestroy( $image );
 
 		if ( ! $success ) {
@@ -151,7 +154,7 @@ class BFImageController {
 			return null;
 		}
 
-		error_log( 'BF Advanced Images: Successfully converted to WebP: ' . $webp_path );
+		error_log( 'BF Advanced Images: Successfully converted to WebP: ' . $webp_path . ' (Lossless: ' . ($lossless ? 'Yes' : 'No') . ', Quality: ' . $quality . ')' );
 		return $webp_path;
 	}
 }

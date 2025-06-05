@@ -79,6 +79,35 @@ class BFDashboardSetup {
 			.bf-advanced-images-wrap .webp-debug-info p {
 				margin: 5px 0;
 			}
+			.bf-advanced-images-wrap .webp-settings {
+				background: #fff;
+				padding: 20px;
+				border: 1px solid #c3c4c7;
+				border-radius: 4px;
+				margin: 15px 0;
+			}
+			.bf-advanced-images-wrap .webp-setting-row {
+				margin-bottom: 20px;
+			}
+			.bf-advanced-images-wrap .webp-setting-row:last-child {
+				margin-bottom: 0;
+			}
+			.bf-advanced-images-wrap .webp-setting-row .description {
+				color: #646970;
+				font-style: italic;
+				margin: 5px 0 0 0;
+			}
+			.bf-advanced-images-wrap input[type="range"] {
+				width: 200px;
+				margin: 0 10px;
+				vertical-align: middle;
+			}
+			.bf-advanced-images-wrap output {
+				display: inline-block;
+				min-width: 40px;
+				text-align: center;
+				vertical-align: middle;
+			}
 		</style>
 		<?php
 	}
