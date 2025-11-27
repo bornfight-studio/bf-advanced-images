@@ -71,8 +71,8 @@ class BFImagesDirectoryOptions {
 	}
 
 	public function delete_all_bf_images(): bool {
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php' );
-		require_once( ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php' );
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-base.php';
+		require_once ABSPATH . 'wp-admin/includes/class-wp-filesystem-direct.php';
 		$fileSystemDirect = new WP_Filesystem_Direct( false );
 
 		return $fileSystemDirect->rmdir( $this->get_bf_images_path(), true );

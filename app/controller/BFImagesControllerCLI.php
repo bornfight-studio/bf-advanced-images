@@ -8,8 +8,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 use bfAdvancedImages\core\BFConstants;
 use bfAdvancedImages\core\BFImagesDirectoryOptions;
-use \WP_CLI;
-use \WP_CLI_Command;
+use WP_CLI;
+use WP_CLI_Command;
 
 class BFImagesControllerCLI extends WP_CLI_Command {
 	public function delete_images(): void {

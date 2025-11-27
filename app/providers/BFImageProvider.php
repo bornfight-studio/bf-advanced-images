@@ -29,7 +29,7 @@ class BFImageProvider {
 
 		$this->image_sizes[ $size_name ] = array(
 			'size' => array( $size[0], $size[1] ),
-			'crop' => $crop
+			'crop' => $crop,
 		);
 
 		return true;

@@ -26,10 +26,14 @@ class BFImageController {
 			return '';
 		}
 
-		return $this->get_image( $attachment_id, array(
-			intval( $image_size['size'][0] ),
-			intval( $image_size['size'][1] )
-		), $crop );
+		return $this->get_image(
+			$attachment_id,
+			array(
+				intval( $image_size['size'][0] ),
+				intval( $image_size['size'][1] ),
+			),
+			$crop
+		);
 	}
 
 	public function get_attachment_image_by_custom_size( ?int $attachment_id = null, array $size = array(), bool $crop = false ): string {
